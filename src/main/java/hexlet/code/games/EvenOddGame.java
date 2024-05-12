@@ -1,26 +1,27 @@
-package hexlet.code;
+package hexlet.code.games;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import hexlet.code.Engine;
 
 public class EvenOddGame {
     public static void game() {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        String name = scanner.nextLine();
-        System.out.println("Hello, " + name + "!");
+        String name = Engine.getName(); // Запрашиваем имя пользователя
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
 
         int correctAnswersCount = 0;
+
         while (correctAnswersCount < 3) { //три попытки, три генерации числа
-            int randomNumber = random.nextInt(1000); // генерирует случайное число от 0 до 999
+            int randomNumber = random.nextInt(); // генерирует случайное число
             System.out.println("Question: " + randomNumber); // Вывод случайного числа
+
             boolean isEven = randomNumber % 2 == 0; // Проверка четности случайного числа
-            //boolean isNotEven = randomNumber % 2 != 0; //проверка на нечетность
             var choice = scanner.nextLine(); // Считывание выбора пользователя
             System.out.println("Your answer: " + choice);
+
             // проверяем соответсвует ответ правильному варианту
             if ((isEven && choice.equals("yes")) || (!isEven && choice.equals("no"))) {
                 System.out.println("Correct!");
