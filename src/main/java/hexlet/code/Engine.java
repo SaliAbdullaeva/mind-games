@@ -2,10 +2,7 @@ package hexlet.code;
 
 import java.util.Scanner;
 
-import hexlet.code.games.Calculator;
-import hexlet.code.games.EvenOddGame;
-import hexlet.code.games.Nod;
-import hexlet.code.games.Progression;
+import hexlet.code.games.*;
 
 public class Engine { //класс конструктор
     private static Scanner scanner = new Scanner(System.in); // Создание объекта Scanner для считывания ввода
@@ -19,7 +16,8 @@ public class Engine { //класс конструктор
                 + "3 - Calc \n "
                 + "4 - GCD \n "
                 + "5 - Progression \n "
-                + "0 - Exit");
+                + "6 - Prime \n"
+                + " 0 - Exit");
 
         System.out.print("Your choice: ");
         int choice = scanner.nextInt(); // Считывание выбора пользователя
@@ -40,6 +38,9 @@ public class Engine { //класс конструктор
         } else if (choice == 5) {
             greet();
             Progression.game();
+        } else if (choice == 6) {
+            greet();
+            Prime.game();
         } else if (choice == 0) {
             System.out.println("Goodbye!");
         }
