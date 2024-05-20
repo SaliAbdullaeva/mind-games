@@ -1,23 +1,21 @@
 package hexlet.code.games;
 
-import java.util.Random;
 import java.util.Scanner;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Nod {
     public static void game() {
+        Engine.greet();
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
         String name = Engine.getName();
-
-        int correctAnswers = 0;
 
         System.out.println("Find the greatest common divisor of given numbers.");
 
         for (var i = 0; i < 3; i++) {
-            int num1 = random.nextInt(100);
-            int num2 = random.nextInt(100);
+            int num1 = Utils.getRandomInt(0, 99);
+            int num2 = Utils.getRandomInt(0, 99);
 
             System.out.println("Question: " + num1 + " " + num2);
             System.out.print("Your answer: ");
@@ -28,7 +26,6 @@ public class Nod {
             // Проверяем ответ пользователя
             if (userAnswer == gcd) {
                 System.out.println("Correct!");
-                correctAnswers++;
             } else {
                 System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + gcd + "'.");
                 System.out.println("Let's try again, " + name + "!");

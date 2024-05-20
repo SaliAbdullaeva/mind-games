@@ -1,14 +1,14 @@
 package hexlet.code.games;
 
-import java.util.Random;
 import java.util.Scanner;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Progression {
     public static void game() {
+        Engine.greet();
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
         String name = Engine.getName();
 
         int correctAnswers = 0;
@@ -16,14 +16,14 @@ public class Progression {
         for (var i = 0; i < 3; i++) { //цикл для повторения игры в случае правильного ответа
 
             // Генерация длины прогрессии от 5 до 10 чисел
-            int progressionLength = random.nextInt(6) + 5;
+            int progressionLength = Utils.getRandomInt(5, 10);
 
             // Генерация случайного начального числа и разности арифметической прогрессии
-            int startNumber = random.nextInt(100);
-            int difference = random.nextInt(10) + 1;
+            int startNumber = Utils.getRandomInt(0, 99);
+            int difference = Utils.getRandomInt(1, 10);
 
             // Генерация позиции скрытого числа
-            int hiddenIndex = random.nextInt(progressionLength);
+            int hiddenIndex = Utils.getRandomInt(0, progressionLength - 1);
 
             System.out.println("What number is missing in the progression?");
             System.out.println("Question: ");

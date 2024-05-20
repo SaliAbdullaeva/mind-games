@@ -1,14 +1,13 @@
 package hexlet.code.games;
 
-import java.util.Random;
 import java.util.Scanner;
-
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Prime {
     public static void game() {
+        Engine.greet();
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
         String name = Engine.getName();
 
         int correctAnswers = 0;
@@ -17,7 +16,7 @@ public class Prime {
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'");
 
         while (correctAnswers < 3) {
-            int num = random.nextInt(100);
+            int num =  Utils.getRandomInt(0, 99);
             boolean isPrime = isPrime(num); // Вызов метода isPrime перед циклом
             System.out.println("Question: " + num);
 
@@ -40,11 +39,8 @@ public class Prime {
     }
     
     private static boolean isPrime(int num) {
-        if (num <= 1) { //если число меньше 1, то оно не простое
-            return false;
-        } else if (num == 2) { //если число равное числу 2, то простое
-            return true;
-        } else if (num % 2 == 0) { //если число делится на 2 без остатка, то не простое
+//если число меньше или равно 1, либо оно больше 2 и делится на 2 без остатка, то оно не простое
+        if (num <= 1 || (num > 2 && num % 2 == 0)) {
             return false;
         }
         return true;

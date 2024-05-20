@@ -1,22 +1,21 @@
 package hexlet.code.games;
 
-import java.util.Random;
 import java.util.Scanner;
-
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Calculator {
-    public static void game() {
-        Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
-        String name = Engine.getName(); // Запрашиваем имя пользователя
 
+    public static void game() {
+        Engine.greet();
+        Scanner scanner = new Scanner(System.in);
+        String name = Engine.getName(); // Запрашиваем имя пользователя
         System.out.println("What is the result of the expression?");
 
         for (int i = 0; i < 3; i++) {
-            int num1 = random.nextInt(100);
-            int num2 = random.nextInt(100);
-            char operator = getRandomOperator(random);
+            int num1 = Utils.getRandomInt(0, 99);
+            int num2 = Utils.getRandomInt(0, 99);
+            char operator = getRandomOperator();
             int result = calculate(num1, num2, operator);
 
             System.out.println("Question: " + num1 + " " + operator + " " + num2);
@@ -35,21 +34,18 @@ public class Calculator {
         System.out.println("Congratulations, " + name + "!");
     }
 
-    private static char getRandomOperator(Random random) {
+    private static char getRandomOperator() {
         char[] operators = {'+', '-', '*'};
-        return operators[random.nextInt(operators.length)];
+        return operators[Utils.getRandomInt(0, operators.length - 1)];
     }
 
     private static int calculate(int num1, int num2, char operator) {
-        switch (operator) {
-            case '+':
-                return num1 + num2;
-            case '-':
-                return num1 - num2;
-            case '*':
-                return num1 * num2;
-            default:
-                throw new IllegalArgumentException("Invalid operator");
-        }
+        return switch (operator) {
+            case '+' -> num1 + num2;
+            case '-' -> num1 - num2;
+            case '*' -> num1 * num2;
+            default -> throw new IllegalArgumentException("Invalid operator");
+        };
     }
 }
+
