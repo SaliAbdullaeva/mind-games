@@ -1,6 +1,5 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
 import hexlet.code.Engine;
 import hexlet.code.Utils;
 
@@ -8,9 +7,9 @@ public class Calculator {
 
     public static void game() {
         Engine.greet();
-        Scanner scanner = new Scanner(System.in);
-        String name = Engine.getName(); // Запрашиваем имя пользователя
         System.out.println("What is the result of the expression?");
+
+        int correctAnswers = 0;
 
         for (int i = 0; i < 3; i++) {
             int num1 = Utils.getRandomInt(0, 99);
@@ -19,19 +18,29 @@ public class Calculator {
             int result = calculate(num1, num2, operator);
 
             System.out.println("Question: " + num1 + " " + operator + " " + num2);
-            System.out.print("Your answer: ");
-            int userAnswer = scanner.nextInt();
 
-            if (userAnswer == result) {
-                System.out.println("Correct!");
-            } else {
-                System.out.println(userAnswer + " is wrong answer ;(. Correct answer was  " + result + ".");
-                System.out.println("Let's try again, " + name + "!");
+            if (!isAnswerCorrect(result)) {
+                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
                 return;
             }
+            correctAnswers++;
         }
 
-        System.out.println("Congratulations, " + name + "!");
+        if (correctAnswers == 3) {
+            Engine.congratulate();
+        }
+    }
+
+    private static boolean isAnswerCorrect(int correctAnswer) {
+        int userAnswer = Engine.getUserIntInput();
+
+        if (userAnswer == correctAnswer) {
+            System.out.println("Correct!");
+            return true;
+        } else {
+            Engine.showError(String.valueOf(userAnswer), String.valueOf(correctAnswer));
+            return false;
+        }
     }
 
     private static char getRandomOperator() {
@@ -48,4 +57,3 @@ public class Calculator {
         };
     }
 }
-
