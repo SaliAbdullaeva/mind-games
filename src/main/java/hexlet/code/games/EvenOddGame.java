@@ -5,41 +5,23 @@ import hexlet.code.Utils;
 
 public class EvenOddGame {
 
-    public static void game() {
-        Engine.greet();
-        System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
+    public static void game(int maxRounds) {
+        String rule = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+        final int bound = 100;
 
-        int correctAnswersCount = 0;
+        String[][] gameRounds = new String[maxRounds][2];
 
-        while (correctAnswersCount < 3) {
-            int randomNumber = Utils.getRandomInt(-100, 100);
-            System.out.println("Question: " + randomNumber);
+        for (int i = 0; i < maxRounds; i++) {
+            int number = Utils.nextInt(bound);
 
-            boolean isEven = randomNumber % 2 == 0;
-
-            if (!isAnswerCorrect(isEven)) {
-                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
-                break;
-            }
-            correctAnswersCount++;
+            gameRounds[i][0] = Integer.toString(number);
+            gameRounds[i][1] = isEven(number) ? "yes" : "no";
         }
 
-        if (correctAnswersCount == 3) {
-            Engine.congratulate();
-        }
+        Engine.beginGame(rule, gameRounds);
     }
 
-    private static boolean isAnswerCorrect(boolean isEven) {
-        String choice = Engine.getUserInput();
-        System.out.println("Your answer: " + choice);
-
-        if ((isEven && choice.equals("yes")) || (!isEven && choice.equals("no"))) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            String correctAnswer = isEven ? "yes" : "no";
-            Engine.showError(choice, correctAnswer);
-            return false;
-        }
+    public static boolean isEven(int number) {
+        return number % 2 == 0;
     }
 }

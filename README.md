@@ -1,6 +1,22 @@
-### Шаблон проекта начинающего программиста. 
-### Разработка обычных консольных игр:
-###
+## «Игры разума».
+Проект представляет из себя 5 консольных игр для развития мозга.
+В каждой игре пользователю задается вопрос, где, в случае неправильного ответа, выводится результат с правильным.<br/>
+В случае правильного, количество раундов должно быть равно трём.
+### Список игр:
+#### "Проверка на чётность".<br/>
+#### "Калькулятор". 
+(Вычисление выражения).<br/>
+#### "НОД". 
+(Вычисление наибольшего общего делителя). <br/>
+#### "Арифметическая прогрессия".
+(Поиск пропущенных чисел в последовательности чисел).<br/>
+#### "Простое ли число?"
+(Определение простого числа).
+<br/>
+<br/>
+<br/>
+<br/>
+
 [![Actions Status](https://github.com/SaliAbdullaeva/java-project-61/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/SaliAbdullaeva/java-project-61/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f42949791707b175b09a/maintainability)](https://codeclimate.com/github/SaliAbdullaeva/java-project-61/maintainability)
 [![asciicast](https://asciinema.org/a/16vO82mJoehnqDjeSFK6D1ayC.svg)](https://asciinema.org/a/16vO82mJoehnqDjeSFK6D1ayC)

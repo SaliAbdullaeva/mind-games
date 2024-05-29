@@ -4,52 +4,34 @@ import hexlet.code.Engine;
 import hexlet.code.Utils;
 
 public class Prime {
-    public static void game() {
-        Engine.greet();
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+    public static void game(int maxRounds) {
+        String rule = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+        final int bound = 100;
 
-        int correctAnswers = 0;
+        String[][] gameRounds = new String[maxRounds][2];
 
-        while (correctAnswers < 3) {
-            int num = Utils.getRandomInt(0, 99);
-            System.out.println("Question: " + num);
-            boolean isPrime = isPrime(num);
+        for (int i = 0; i < maxRounds; i++) {
+            int number = Utils.nextInt(bound);
 
-            if (!isAnswerCorrect(isPrime)) {
-                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
-                break;
-            }
-            correctAnswers++;
+            gameRounds[i][0] = Integer.toString(number);
+            gameRounds[i][1] = (isPrime(number)) ? "yes" : "no";
         }
 
-        if (correctAnswers == 3) {
-            Engine.congratulate();
-        }
+        Engine.beginGame(rule, gameRounds);
     }
 
-    private static boolean isAnswerCorrect(boolean isPrime) {
-        String choice = Engine.getUserInput();
-        System.out.println("Your answer: " + choice);
-
-        if ((isPrime && choice.equals("yes")) || (!isPrime && choice.equals("no"))) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            String correctAnswer = isPrime ? "yes" : "no";
-            Engine.showError(choice, correctAnswer);
+    public static boolean isPrime(int n) {
+        // Corner case
+        if (n <= 1) {
             return false;
         }
-    }
-
-    private static boolean isPrime(int num) {
-        if (num <= 1) {
-            return false;
-        }
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) {
+        // Check from 2 to sqrt(n)
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
                 return false;
             }
         }
         return true;
     }
+
 }

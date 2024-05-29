@@ -4,66 +4,35 @@ import hexlet.code.Engine;
 import hexlet.code.Utils;
 
 public class Progression {
-    public static void game() {
-        Engine.greet();
-        System.out.println("What number is missing in the progression?");
+    public static void game(int maxRounds) {
+        String rule = "What number is missing in the progression?";
+        final int accBound = 15;
+        final int stepBound = 10;
 
-        int correctAnswers = 0;
+        String[][] gameRounds = new String[maxRounds][2];
 
-        while (correctAnswers < 3) {
-            int progressionLength = Utils.getRandomInt(5, 10);
-            int startNumber = Utils.getRandomInt(0, 99);
-            int difference = Utils.getRandomInt(1, 10);
-            int hiddenIndex = Utils.getRandomInt(0, progressionLength - 1);
+        final int progressionLength = 10;
+        for (int i = 0; i < maxRounds; i++) {
+            int acc = Utils.nextInt(accBound);
+            int step = Utils.nextInt(1, stepBound);
+            int unknown = Utils.nextInt(progressionLength);
 
-            int[] progression = generateProgression(startNumber, difference, progressionLength);
-            String question = createQuestion(progression, hiddenIndex);
+            String[] progression = makeProgression(progressionLength, acc, step);
 
-            System.out.println("Question: " + question);
-
-            int correctAnswer = progression[hiddenIndex];
-
-            if (!isAnswerCorrect(correctAnswer)) {
-                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
-                break;
-            }
-            correctAnswers++;
+            gameRounds[i][1] = progression[unknown];
+            progression[unknown] = "..";
+            gameRounds[i][0] = String.join(" ", progression);
         }
 
-        if (correctAnswers == 3) {
-            Engine.congratulate();
-        }
+        Engine.beginGame(rule, gameRounds);
     }
 
-    private static boolean isAnswerCorrect(int correctAnswer) {
-        int userAnswer = Engine.getUserIntInput();
-
-        if (userAnswer == correctAnswer) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            Engine.showError(String.valueOf(userAnswer), String.valueOf(correctAnswer));
-            return false;
-        }
-    }
-
-    private static int[] generateProgression(int startNumber, int difference, int length) {
-        int[] progression = new int[length];
+    public static String[] makeProgression(int length, int acc, int step) {
+        String[] progression = new String[length];
         for (int i = 0; i < length; i++) {
-            progression[i] = startNumber + i * difference;
+            progression[i] = Integer.toString(acc + i * step);
         }
         return progression;
     }
 
-    private static String createQuestion(int[] progression, int hiddenIndex) {
-        StringBuilder question = new StringBuilder();
-        for (int i = 0; i < progression.length; i++) {
-            if (i == hiddenIndex) {
-                question.append(".. ");
-            } else {
-                question.append(progression[i]).append(" ");
-            }
-        }
-        return question.toString().trim();
-    }
 }

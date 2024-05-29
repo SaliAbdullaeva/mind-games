@@ -4,50 +4,32 @@ import hexlet.code.Engine;
 import hexlet.code.Utils;
 
 public class Nod {
-    public static void game() {
-        Engine.greet();
-        System.out.println("Find the greatest common divisor of given numbers.");
 
-        int correctAnswers = 0;
+    public static void game(int maxRounds) {
+        String rule = "Find the greatest common divisor of given numbers.";
+        final int bound = 100;
 
-        for (int i = 0; i < 3; i++) {
-            int num1 = Utils.getRandomInt(0, 99);
-            int num2 = Utils.getRandomInt(0, 99);
+        String[][] gameRounds = new String[maxRounds][2];
 
-            System.out.println("Question: " + num1 + " " + num2);
+        for (int i = 0; i < maxRounds; i++) {
+            int[] numbers = Utils.nextIntArray(2, bound);
 
-            int gcd = findGCD(num1, num2);
+            gameRounds[i][0] = numbers[0] + " " + numbers[1];
+            gameRounds[i][1] = Integer.toString(getGcd(numbers[0], numbers[1]));
+        }
 
-            if (!isAnswerCorrect(gcd)) {
-                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
-                return;
+        Engine.beginGame(rule, gameRounds);
+    }
+
+    public static int getGcd(int a, int b) {
+        while (a != b) {
+            if (a > b) {
+                a -= b;
+            } else {
+                b -= a;
             }
-            correctAnswers++;
         }
-
-        if (correctAnswers == 3) {
-            Engine.congratulate();
-        }
+        return a;
     }
 
-    private static boolean isAnswerCorrect(int correctAnswer) {
-        int userAnswer = Engine.getUserIntInput();
-
-        if (userAnswer == correctAnswer) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            Engine.showError(String.valueOf(userAnswer), String.valueOf(correctAnswer));
-            return false;
-        }
-    }
-
-    private static int findGCD(int num1, int num2) {
-        while (num2 != 0) {
-            int temp = num2;
-            num2 = num1 % num2;
-            num1 = temp;
-        }
-        return num1;
-    }
 }

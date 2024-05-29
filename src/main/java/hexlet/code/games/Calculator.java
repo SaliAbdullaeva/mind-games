@@ -5,55 +5,35 @@ import hexlet.code.Utils;
 
 public class Calculator {
 
-    public static void game() {
-        Engine.greet();
-        System.out.println("What is the result of the expression?");
+    public static void game(int maxRounds) {
+        String rule = "What is the result of the expression?";
+        final int[] boundsArray = new int[] {100, 20};
 
-        int correctAnswers = 0;
+        String[][] gameRounds = new String[maxRounds][2];
 
-        for (int i = 0; i < 3; i++) {
-            int num1 = Utils.getRandomInt(0, 99);
-            int num2 = Utils.getRandomInt(0, 99);
-            char operator = getRandomOperator();
-            int result = calculate(num1, num2, operator);
+        for (int i = 0; i < maxRounds; i++) {
+            int[] numbers = Utils.nextIntArray(boundsArray);
+            String operator = Utils.randomFromArray(new String[]{"+", "-", "*"});
 
-            System.out.println("Question: " + num1 + " " + operator + " " + num2);
+            gameRounds[i][0] = numbers[0] + " " + operator + " " + numbers[1];
+            gameRounds[i][1] = Integer.toString(calculate(numbers[0], numbers[1], operator));
+        }
 
-            if (!isAnswerCorrect(result)) {
-                System.out.println("Let's try again, " + Engine.getPlayerName() + "!");
-                return;
+        Engine.beginGame(rule, gameRounds);
+    }
+
+    public static int calculate(int a, int b, String operator) {
+        switch (operator) {
+            case "+" -> {
+                return a + b;
             }
-            correctAnswers++;
+            case "-" -> {
+                return a - b;
+            }
+            case "*" -> {
+                return a * b;
+            }
+            default -> throw new RuntimeException("Invalid operator: '" + operator + "' !");
         }
-
-        if (correctAnswers == 3) {
-            Engine.congratulate();
-        }
-    }
-
-    private static boolean isAnswerCorrect(int correctAnswer) {
-        int userAnswer = Engine.getUserIntInput();
-
-        if (userAnswer == correctAnswer) {
-            System.out.println("Correct!");
-            return true;
-        } else {
-            Engine.showError(String.valueOf(userAnswer), String.valueOf(correctAnswer));
-            return false;
-        }
-    }
-
-    private static char getRandomOperator() {
-        char[] operators = {'+', '-', '*'};
-        return operators[Utils.getRandomInt(0, operators.length - 1)];
-    }
-
-    private static int calculate(int num1, int num2, char operator) {
-        return switch (operator) {
-            case '+' -> num1 + num2;
-            case '-' -> num1 - num2;
-            case '*' -> num1 * num2;
-            default -> throw new IllegalArgumentException("Invalid operator");
-        };
     }
 }
