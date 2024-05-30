@@ -48,7 +48,6 @@ version = "1.0-SNAPSHOT"
 application {
     mainClass.set("hexlet.code.Application")
     mainClass = "hexlet.code.App" //указываем точку входа для приложения
-    mainClass = "org.gradle.MyMain"
 }
 
 
